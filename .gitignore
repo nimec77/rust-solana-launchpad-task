@@ -1,0 +1,7 @@
+test-ledger
+backend/.env
+
+# IDE
+.vscode/
+.claude/
+.idea/
