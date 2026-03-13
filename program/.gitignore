@@ -1,9 +1,16 @@
 .anchor
 .DS_Store
-target
+
+target/
+
 **/*.rs.bk
-node_modules
+
+node_modules/
+
 test-ledger
 .yarn
 .tgz
 vendor/
+
+# IDE
+.vscode/
