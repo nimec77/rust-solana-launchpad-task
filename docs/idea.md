@@ -164,10 +164,12 @@ cargo test
 4. Copy `ORACLE_STATE_PUBKEY` from init output to `backend/.env`
 5. `make backend` — start the backend service
 6. `make frontend` — open the web UI at `http://localhost:7001`
-7. Connect a wallet (Phantom/Solflare) and mint a token
+7. Connect a wallet and mint a token
 8. Verify the backend logs show the `TokenCreated` event in JSON
 
 **Metaplex metadata**: when minting, you can pass `name`, `symbol`, and `uri` — the contract creates Metaplex Token Metadata (name, ticker, image in wallet). If you pass an empty name, no metadata is created (suitable for localnet without Metaplex). For wallet display, run `make validator-metaplex` to clone the Metaplex program from mainnet.
+
+**Wallet for localnet**: For testing with local RPC (`http://localhost:8899`), Backpack is recommended — it connects to your local validator correctly. Most other wallets (including Phantom and Solflare) route RPC requests through remote servers, so `localhost` resolves to the server itself, not your machine. For details on localhost RPC limitations and tunneling (ngrok, etc.), see the Backpack documentation.
 
 ### Step 6: Deploy to Devnet and Submit Results
 
