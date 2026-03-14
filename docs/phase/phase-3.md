@@ -4,9 +4,9 @@
 
 ## Tasks
 
-- [ ] 3.1 Implement `to_fixed_6()` in `backend/src/main.rs`
+- [x] 3.1 Implement `to_fixed_6()` in `backend/src/main.rs`
   - Parse decimal string → `u64` with 6 fixed decimals; truncate, don't round
-- [ ] 3.2 Fix test `to_fixed_6_truncates_fraction_to_six_digits` — change expected `1_123_457` → `1_123_456`
+- [x] 3.2 Fix test `to_fixed_6_truncates_fraction_to_six_digits` — change expected `1_123_457` → `1_123_456`
 
 ## Acceptance Criteria
 

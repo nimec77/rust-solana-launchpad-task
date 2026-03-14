@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [ML-3] — 2026-03-14
+
+### Fixed
+
+- **Backend price parser:** Implemented `to_fixed_6()` in `backend/src/main.rs` — replaced the `todo!()` stub with string-based decimal parsing that splits on the decimal point, truncates to 6 fractional digits (no rounding), and produces a fixed-point u64 value. Uses no floating-point arithmetic.
+- **Backend test:** Corrected the expected value in `to_fixed_6_truncates_fraction_to_six_digits` from `1_123_457` (rounded) to `1_123_456` (truncated), matching the specified truncation-not-rounding behavior.
+
+---
+
 ## [ML-2] — 2026-03-14
 
 ### Fixed

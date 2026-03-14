@@ -1,0 +1,16 @@
+# Ignored advisories — all are transitive dependencies from solana-sdk/solana-client
+# that cannot be upgraded without a Solana SDK version bump.
+
+[advisories]
+ignore = [
+    # bytes 1.11.0 — integer overflow in BytesMut::reserve (transitive via tokio/solana-*)
+    "RUSTSEC-2026-0007",
+    # quinn-proto 0.11.13 — DoS in Quinn endpoints (transitive via solana-streamer/solana-client)
+    "RUSTSEC-2026-0037",
+    # time 0.3.44 — DoS via stack exhaustion (transitive via x509-parser/solana-tls-utils)
+    "RUSTSEC-2026-0009",
+    # curve25519-dalek 3.2.0 — timing variability in Scalar sub (transitive via ed25519-dalek/solana-signature)
+    "RUSTSEC-2024-0344",
+    # ed25519-dalek 1.0.1 — double public key signing oracle attack (transitive via solana-signature)
+    "RUSTSEC-2022-0093",
+]
