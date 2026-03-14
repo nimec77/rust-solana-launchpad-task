@@ -4,9 +4,9 @@
 
 ## Tasks
 
-- [ ] 1.1 Implement `apply_price_update()` in `program/programs/sol_usd_oracle/src/lib.rs`
+- [x] 1.1 Implement `apply_price_update()` in `program/programs/sol_usd_oracle/src/lib.rs`
   - Set `oracle.price = new_price` and `oracle.last_updated_slot = current_slot`
-- [ ] 1.2 Fix decimals assertion in `program/tests/oracle.litesvm.ts` (`8` → `6`)
+- [x] 1.2 Fix decimals assertion in `program/tests/oracle.litesvm.ts` (`8` → `6`)
 
 ## Acceptance Criteria
 
