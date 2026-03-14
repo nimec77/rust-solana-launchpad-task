@@ -31,13 +31,20 @@ npm test                        # Vitest unit tests
 
 ### Top-level Makefile shortcuts
 ```bash
-make build          # anchor build
-make deploy         # build + deploy to localnet
-make init           # run init-local.js
-make test           # run program tests
-make backend        # cargo run in backend/
-make frontend       # npm run dev in frontend/
-make validator      # solana-test-validator
+make install             # yarn install (program/) + npm install (frontend/)
+make build               # anchor build
+make deploy              # build + deploy to localnet
+make deploy-devnet       # build + deploy to devnet
+make deploy-oracle       # deploy oracle only (localnet)
+make deploy-minter       # deploy minter only (localnet)
+make init                # initialize oracle + minter on localnet
+make init-devnet         # initialize on devnet
+make test                # run program tests (LiteSVM)
+make backend             # cargo run in backend/
+make backend-devnet      # backend with devnet RPC
+make frontend            # npm run dev in frontend/
+make kill-frontend       # kill process on port 7001
+make validator           # solana-test-validator
 make validator-metaplex  # validator with Metaplex clone from mainnet
 ```
 
@@ -83,7 +90,7 @@ These are intentional stubs/bugs for the educational task:
 - Program IDs: `sol_usd_oracle = 4cuvLFFqhaKnTHfeq2FtTUvgudRSe7wq982fA9PBUqBU`, `token_minter = E5erGzaxgCwHqH7RjLXLGWziXj8CXpyN7zW6BRodfFnE`
 - Price decimals: 6 (both oracle price and minter fee use 10^6 scaling)
 - Anchor version: 0.32.1
-- Rust toolchain: defined in `program/rust-toolchain.toml`
+- Rust toolchain: 1.89.0 (defined in `program/rust-toolchain.toml`, components: rustfmt, clippy)
 
 ## Local Development Flow
 
@@ -93,6 +100,10 @@ These are intentional stubs/bugs for the educational task:
 4. Copy `ORACLE_STATE_PUBKEY` from init output to `backend/.env`
 5. `make backend` — starts price updater + event listener
 6. `make frontend` — starts web UI on port 7001
+
+## Workflow
+
+Development follows `docs/workflow.md`: strict iteration-by-iteration execution per `docs/tasklist.md`. Each iteration goes through **Propose → Approve → Implement → Verify → Commit**. No skipping, no scope creep. Architecture details in `docs/vision.md`, task specs in `docs/idea.md`.
 
 ## Conventions
 
