@@ -62,4 +62,4 @@ frontend: kill-frontend
 	cd frontend && npm run dev
 
 test:
-	cd program && yarn run ts-mocha -p ./tsconfig.json -t 1000000 "tests/**/*.ts"
+	cd program && node --import tsx/esm node_modules/.bin/mocha -t 1000000 "tests/**/*.ts"
