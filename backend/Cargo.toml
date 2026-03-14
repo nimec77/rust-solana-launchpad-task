@@ -5,18 +5,29 @@ edition = "2021"
 
 [dependencies]
 anchor-lang = "0.32.1"
-anyhow = "1.0.93"
+anyhow = "1.0.102"
 dotenvy = "0.15.7"
-futures = "0.3.31"
-regex = "1.11.1"
-reqwest = { version = "0.11.27", default-features = false, features = ["json", "rustls-tls"] }
+futures = "0.3.32"
+regex = "1.12.3"
+reqwest = { version = "0.11.27", default-features = false, features = [
+    "json",
+    "rustls-tls",
+] }
 serde = { version = "1.0.214", features = ["derive"] }
 serde_json = "1.0.132"
-solana-client = "2.1.13"
-solana-sdk = "2.1.13"
-solana-transaction-status = "2.1.13"
-solana-rpc-client-types = "2.3.13"
-sol_usd_oracle = { package = "sol-usd-oracle", path = "../program/programs/sol_usd_oracle", features = ["no-entrypoint"] }
+solana-client = "3.1.10"
+solana-commitment-config = "3.1.1"
+solana-instruction = "3.1.0"
+solana-keypair = "3.1.0"
+solana-pubkey = "3.0.0"
+solana-signature = "3.3.0"
+solana-signer = "3.0.0"
+solana-transaction = "3.1.0"
+solana-transaction-status = "3.1.10"
+solana-rpc-client-types = "3.1.10"
+sol_usd_oracle = { package = "sol-usd-oracle", path = "../program/programs/sol_usd_oracle", features = [
+    "no-entrypoint",
+] }
 tokio = { version = "1.40.0", features = ["macros", "rt-multi-thread", "time"] }
 tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["fmt", "env-filter"] }
+tracing-subscriber = { version = "0.3.23", features = ["fmt", "env-filter"] }

@@ -1,6 +1,6 @@
 use std::{env, str::FromStr, sync::Arc, time::Duration};
 
-use anchor_lang::{InstructionData, ToAccountMetas};
+use anchor_lang::InstructionData;
 use anyhow::{anyhow, Context, Result};
 use dotenvy::dotenv;
 use futures::StreamExt;
@@ -11,13 +11,13 @@ use solana_client::{
     rpc_response::RpcLogsResponse,
 };
 use solana_rpc_client_types::config::{RpcTransactionLogsConfig, RpcTransactionLogsFilter};
-use solana_sdk::{
-    commitment_config::CommitmentConfig,
-    instruction::Instruction,
-    pubkey::Pubkey,
-    signature::{read_keypair_file, Keypair, Signature, Signer},
-    transaction::Transaction,
-};
+use solana_commitment_config::CommitmentConfig;
+use solana_instruction::{AccountMeta, Instruction};
+use solana_keypair::{read_keypair_file, Keypair};
+use solana_pubkey::Pubkey;
+use solana_signature::Signature;
+use solana_signer::Signer;
+use solana_transaction::Transaction;
 use tokio::time::interval;
 use tracing::{error, info, warn};
 
@@ -198,14 +198,13 @@ async fn submit_price(
     new_price: u64,
     admin: Arc<Keypair>,
 ) -> Result<Signature> {
-    use sol_usd_oracle::{accounts, instruction};
+    use sol_usd_oracle::instruction;
 
     let ix_data = instruction::UpdatePrice { new_price }.data();
-    let accounts = accounts::UpdatePrice {
-        oracle: cfg.oracle_state,
-        admin: admin.pubkey(),
-    }
-    .to_account_metas(None);
+    let accounts = vec![
+        AccountMeta::new(cfg.oracle_state, false),
+        AccountMeta::new(admin.pubkey(), true),
+    ];
 
     let ix = Instruction {
         program_id: cfg.oracle_program_id,

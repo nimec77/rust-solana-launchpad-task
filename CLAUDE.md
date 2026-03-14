@@ -13,13 +13,15 @@ Educational Solana mini-launchpad: two Anchor on-chain programs (SOL/USD oracle 
 anchor build                    # Build both programs
 anchor deploy --provider.cluster localnet  # Deploy to local validator
 anchor test --skip-build        # Run LiteSVM tests (no network needed)
-yarn run ts-mocha -p ./tsconfig.json -t 1000000 "tests/**/*.ts"  # Run tests directly
+node --import tsx/esm node_modules/.bin/mocha -t 1000000 "tests/**/*.ts"  # Run tests directly
+node --import tsx/esm node_modules/.bin/mocha -t 1000000 "tests/oracle.litesvm.ts"  # Single test file
 node scripts/init-local.js      # Initialize oracle + minter on localnet
 ```
 
 ### Backend (from `backend/`)
 ```bash
-cargo test                      # Run unit tests
+cargo test                      # Run all unit tests
+cargo test to_fixed_6           # Run a single test by name substring
 cargo run                       # Start price updater + event listener
 ```
 
@@ -27,6 +29,7 @@ cargo run                       # Start price updater + event listener
 ```bash
 npm run dev                     # Dev server on http://localhost:7001
 npm test                        # Vitest unit tests
+npx vitest run app/mintInstruction.test.ts  # Single test file
 ```
 
 ### Top-level Makefile shortcuts
@@ -74,6 +77,19 @@ Terminal-styled React app with Solana Wallet Adapter (Phantom, Solflare). Polls 
 
 Key files: `config.ts` (program IDs, seeds), `mintInstruction.ts` (instruction builder), `TerminalMint.tsx` (main UI + minting logic), `TerminalApp.tsx` (wallet providers).
 
+## Solana Crate Version Compatibility
+
+The backend uses **individual split crates** (not `solana-sdk`) all pinned to 3.x to match `solana-client 3.1.10`:
+
+- `solana-client` 3.1.10, `solana-transaction` 3.1.0, `solana-commitment-config` 3.1.1
+- `solana-pubkey` 3.0.0, `solana-instruction` 3.1.0, `solana-keypair` 3.1.0, `solana-signer` 3.0.0, `solana-signature` 3.3.0
+
+**Why not `solana-sdk`**: `solana-sdk` has no 3.1.x release (jumped 3.0.0 → 4.0.0). Version 4.0.1 pulls in `solana-transaction` 4.0.0 which is incompatible with `solana-client` 3.x (`SerializableTransaction` is only implemented for 3.x `Transaction`). Using split crates at matching 3.x versions avoids all cross-version conflicts.
+
+**Why not all 4.x**: `solana-client`, `solana-transaction-status`, and `solana-rpc-client-types` have no stable 4.x release yet (only 4.0.0-beta). When `solana-client` 4.x goes stable, upgrade everything in one shot.
+
+**Anchor compatibility**: Anchor 0.32.1's `ToAccountMetas` returns `AccountMeta` from `solana-instruction` 2.x, incompatible with 3.x. The backend manually constructs account metas instead of using the `ToAccountMetas` trait.
+
 ## Student TODO Locations
 
 These are intentional stubs/bugs for the educational task:
@@ -88,6 +104,7 @@ These are intentional stubs/bugs for the educational task:
 ## Key Constants
 
 - Program IDs: `sol_usd_oracle = 4cuvLFFqhaKnTHfeq2FtTUvgudRSe7wq982fA9PBUqBU`, `token_minter = E5erGzaxgCwHqH7RjLXLGWziXj8CXpyN7zW6BRodfFnE`
+- Program IDs are defined in 4 places: `program/programs/*/src/lib.rs` (`declare_id!`), `program/Anchor.toml`, `frontend/app/config.ts`
 - Price decimals: 6 (both oracle price and minter fee use 10^6 scaling)
 - Anchor version: 0.32.1
 - Rust toolchain: 1.89.0 (defined in `program/rust-toolchain.toml`, components: rustfmt, clippy)
