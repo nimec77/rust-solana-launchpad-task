@@ -4,9 +4,9 @@
 
 ## Tasks
 
-- [ ] 2.1 Implement `compute_fee_lamports()` in `program/programs/token_minter/src/lib.rs`
+- [x] 2.1 Implement `compute_fee_lamports()` in `program/programs/token_minter/src/lib.rs`
   - Formula: `fee_lamports = mint_fee_usd * LAMPORTS_PER_SOL / price` (use u128 intermediate)
-- [ ] 2.2 Fix fee formula in `program/tests/minter.litesvm.ts` — invert the assertion formula
+- [x] 2.2 Fix fee formula in `program/tests/minter.litesvm.ts` — invert the assertion formula
 
 ## Acceptance Criteria
 
