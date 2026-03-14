@@ -1,6 +1,6 @@
 # Solana Mini-Launchpad — Task List
 
-**Current Phase:** 4
+**Current Phase:** 5
 
 ## Progress
 
@@ -9,7 +9,7 @@
 | 1  | Fix Oracle Program           | ✅      |
 | 2  | Fix Minter Program           | ✅      |
 | 3  | Fix Backend                  | ✅      |
-| 4  | Generate Own Program IDs     | ⬜      |
+| 4  | Generate Own Program IDs     | ✅      |
 | 5  | Local End-to-End Cycle       | ⬜      |
 | 6  | Devnet Deployment            | ⬜      |
 
@@ -47,8 +47,8 @@
 
 ## Iteration 4: Generate Own Program IDs
 
-- [ ] Generate new keypairs (`solana-keygen grind` or `anchor keys sync`)
-- [ ] Update program IDs in 4 locations:
+- [x] Generate new keypairs (`solana-keygen grind` or `anchor keys sync`)
+- [x] Update program IDs in 4 locations:
   - `program/programs/sol_usd_oracle/src/lib.rs` — `declare_id!()`
   - `program/programs/token_minter/src/lib.rs` — `declare_id!()`
   - `program/Anchor.toml`

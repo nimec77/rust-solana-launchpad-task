@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [ML-4] — 2026-03-14
+
+### Changed
+
+- **Program IDs:** Replaced hardcoded original-author program IDs (`sol_usd_oracle = 4cuvLFF...`, `token_minter = E5erGza...`) with locally generated keypair-derived public keys (`sol_usd_oracle = GSwL85d5Pvvh8HreS3D7d6X3NmCZySbKmZBebF3oqCk3`, `token_minter = 3eyjeU9ZaU2aVySwSNBQWPtkZnN2NtUNWDmpBfsMj4kn`) across all 11 source files: `declare_id!` macros in both programs, `Anchor.toml` (localnet + devnet), `frontend/app/config.ts`, init and utility scripts, LiteSVM tests, migration script, `backend/.env.example`, and `CLAUDE.md`.
+
+---
+
 ## [ML-3] — 2026-03-14
 
 ### Fixed

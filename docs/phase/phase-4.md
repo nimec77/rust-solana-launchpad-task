@@ -4,8 +4,8 @@
 
 ## Tasks
 
-- [ ] 4.1 Generate new keypairs (`solana-keygen grind` or `anchor keys sync`)
-- [ ] 4.2 Update program IDs in 4 locations:
+- [x] 4.1 Generate new keypairs (`solana-keygen grind` or `anchor keys sync`)
+- [x] 4.2 Update program IDs in 4 locations:
   - `program/programs/sol_usd_oracle/src/lib.rs` — `declare_id!()`
   - `program/programs/token_minter/src/lib.rs` — `declare_id!()`
   - `program/Anchor.toml`

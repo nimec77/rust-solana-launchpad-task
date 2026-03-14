@@ -103,7 +103,7 @@ These are intentional stubs/bugs for the educational task:
 
 ## Key Constants
 
-- Program IDs: `sol_usd_oracle = 4cuvLFFqhaKnTHfeq2FtTUvgudRSe7wq982fA9PBUqBU`, `token_minter = E5erGzaxgCwHqH7RjLXLGWziXj8CXpyN7zW6BRodfFnE`
+- Program IDs: `sol_usd_oracle = GSwL85d5Pvvh8HreS3D7d6X3NmCZySbKmZBebF3oqCk3`, `token_minter = 3eyjeU9ZaU2aVySwSNBQWPtkZnN2NtUNWDmpBfsMj4kn`
 - Program IDs are defined in 4 places: `program/programs/*/src/lib.rs` (`declare_id!`), `program/Anchor.toml`, `frontend/app/config.ts`
 - Price decimals: 6 (both oracle price and minter fee use 10^6 scaling)
 - Anchor version: 0.32.1

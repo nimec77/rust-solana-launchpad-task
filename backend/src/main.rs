@@ -10,11 +10,11 @@ use solana_client::{
     nonblocking::{pubsub_client::PubsubClient, rpc_client::RpcClient},
     rpc_response::RpcLogsResponse,
 };
-use solana_rpc_client_types::config::{RpcTransactionLogsConfig, RpcTransactionLogsFilter};
 use solana_commitment_config::CommitmentConfig;
 use solana_instruction::{AccountMeta, Instruction};
 use solana_keypair::{read_keypair_file, Keypair};
 use solana_pubkey::Pubkey;
+use solana_rpc_client_types::config::{RpcTransactionLogsConfig, RpcTransactionLogsFilter};
 use solana_signature::Signature;
 use solana_signer::Signer;
 use solana_transaction::Transaction;
