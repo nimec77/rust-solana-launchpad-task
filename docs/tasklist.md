@@ -1,5 +1,7 @@
 # Solana Mini-Launchpad — Task List
 
+**Current Phase:** 1
+
 ## Progress
 
 | #  | Iteration                    | Status |
