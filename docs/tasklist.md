@@ -1,13 +1,13 @@
 # Solana Mini-Launchpad — Task List
 
-**Current Phase:** 2
+**Current Phase:** 3
 
 ## Progress
 
 | #  | Iteration                    | Status |
 |----|------------------------------|--------|
 | 1  | Fix Oracle Program           | ✅      |
-| 2  | Fix Minter Program           | ⬜      |
+| 2  | Fix Minter Program           | ✅      |
 | 3  | Fix Backend                  | ⬜      |
 | 4  | Generate Own Program IDs     | ⬜      |
 | 5  | Local End-to-End Cycle       | ⬜      |
@@ -27,9 +27,9 @@
 
 ## Iteration 2: Fix Minter Program
 
-- [ ] Implement `compute_fee_lamports()` in `program/programs/token_minter/src/lib.rs`
+- [x] Implement `compute_fee_lamports()` in `program/programs/token_minter/src/lib.rs`
   - Formula: `fee_lamports = mint_fee_usd * LAMPORTS_PER_SOL / price` (use u128 intermediate)
-- [ ] Fix fee formula in `program/tests/minter.litesvm.ts` — invert the assertion formula
+- [x] Fix fee formula in `program/tests/minter.litesvm.ts` — invert the assertion formula
 
 **Test:** `anchor test --skip-build` — all program tests pass
 
