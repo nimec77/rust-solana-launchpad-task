@@ -1,6 +1,6 @@
 # Solana Mini-Launchpad — Task List
 
-**Current Phase:** 3
+**Current Phase:** 4
 
 ## Progress
 
@@ -8,7 +8,7 @@
 |----|------------------------------|--------|
 | 1  | Fix Oracle Program           | ✅      |
 | 2  | Fix Minter Program           | ✅      |
-| 3  | Fix Backend                  | ⬜      |
+| 3  | Fix Backend                  | ✅      |
 | 4  | Generate Own Program IDs     | ⬜      |
 | 5  | Local End-to-End Cycle       | ⬜      |
 | 6  | Devnet Deployment            | ⬜      |
@@ -37,9 +37,9 @@
 
 ## Iteration 3: Fix Backend
 
-- [ ] Implement `to_fixed_6()` in `backend/src/main.rs`
+- [x] Implement `to_fixed_6()` in `backend/src/main.rs`
   - Parse decimal string → `u64` with 6 fixed decimals; truncate, don't round
-- [ ] Fix test `to_fixed_6_truncates_fraction_to_six_digits` — change expected `1_123_457` → `1_123_456`
+- [x] Fix test `to_fixed_6_truncates_fraction_to_six_digits` — change expected `1_123_457` → `1_123_456`
 
 **Test:** `cargo test` — all backend tests pass
 
