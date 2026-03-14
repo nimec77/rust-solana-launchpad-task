@@ -1,12 +1,12 @@
 # Solana Mini-Launchpad — Task List
 
-**Current Phase:** 1
+**Current Phase:** 2
 
 ## Progress
 
 | #  | Iteration                    | Status |
 |----|------------------------------|--------|
-| 1  | Fix Oracle Program           | ⬜      |
+| 1  | Fix Oracle Program           | ✅      |
 | 2  | Fix Minter Program           | ⬜      |
 | 3  | Fix Backend                  | ⬜      |
 | 4  | Generate Own Program IDs     | ⬜      |
@@ -17,9 +17,9 @@
 
 ## Iteration 1: Fix Oracle Program
 
-- [ ] Implement `apply_price_update()` in `program/programs/sol_usd_oracle/src/lib.rs`
+- [x] Implement `apply_price_update()` in `program/programs/sol_usd_oracle/src/lib.rs`
   - Set `oracle.price = new_price` and `oracle.last_updated_slot = current_slot`
-- [ ] Fix decimals assertion in `program/tests/oracle.litesvm.ts` (`8` → `6`)
+- [x] Fix decimals assertion in `program/tests/oracle.litesvm.ts` (`8` → `6`)
 
 **Test:** `anchor build && anchor test --skip-build` — oracle tests pass
 
