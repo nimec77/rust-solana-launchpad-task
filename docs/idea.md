@@ -76,12 +76,20 @@ Single-file async Rust service (`backend/src/main.rs`) running two concurrent to
 
 ## Step-by-Step Task Breakdown
 
+### Two Phases of Work
+
+The assignment is structured in two phases:
+
+1. **Fix `program/` and `backend/`** — complete TODO stubs and fix broken tests so all tests pass
+2. **Deploy under your own program IDs** — generate new keypairs, update IDs everywhere, deploy to devnet, and verify the full cycle
+
 ### Step 0: Prepare the Repository
 
-- Fork/clone the starter repository
+- **Create a public repository on GitHub** and upload the project's source code (the first commit)
+- **Commit discipline**: make all subsequent changes as separate commits — this helps the reviewer track your progress
 - Review the project structure: `program/`, `backend/`, `frontend/`
 - Read through `CLAUDE.md` and the existing code to understand the architecture
-- Run `yarn install` in `program/` to install test dependencies
+- Run `make install` to install all dependencies (runs `yarn install` in `program/` and `npm install` in `frontend/`)
 
 ### Step 1: Fix the On-Chain Programs (`program/`)
 
@@ -190,7 +198,15 @@ cargo test
 5. Run the backend pointing to Devnet
 6. In the frontend, switch to **Devnet** network; in the wallet, switch to Devnet
 7. Mint at least one token via the frontend
-8. **Submit**: Devnet transaction links + GitHub repository URL
+8. **Update `README.md`** with your deployed contract addresses and 2–3 Devnet transaction links as proof
+9. **Submit**: GitHub repository URL (with updated README) + Devnet transaction links
+
+### How to Submit Your Project
+
+1. Attach the **GitHub repository link** to your submission
+2. The reviewer will create **issues** for any problems found
+3. Fix each issue with a **separate commit** — include the issue number in the commit message (e.g., `fix: correct fee calculation #3`)
+4. Each fix should be its own commit so the reviewer can track progress
 
 ---
 
