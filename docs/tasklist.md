@@ -10,7 +10,7 @@
 | 2  | Fix Minter Program           | ✅      |
 | 3  | Fix Backend                  | ✅      |
 | 4  | Generate Own Program IDs     | ✅      |
-| 5  | Local End-to-End Cycle       | ⬜      |
+| 5  | Local End-to-End Cycle       | ✅      |
 | 6  | Devnet Deployment            | ⬜      |
 
 ---
@@ -60,11 +60,11 @@
 
 ## Iteration 5: Local End-to-End Cycle
 
-- [ ] Start validator: `make validator-metaplex`
-- [ ] Deploy & init: `make deploy && make init`
-- [ ] Configure `backend/.env` (copy `.env.example`, set `ORACLE_STATE_PUBKEY` from init output)
-- [ ] Run backend + frontend: `make backend` + `make frontend`
-- [ ] Mint a token via UI (connect wallet, fill form, submit)
+- [x] Start validator: `make validator-metaplex`
+- [x] Deploy & init: `make deploy && make init`
+- [x] Configure `backend/.env` (copy `.env.example`, set `ORACLE_STATE_PUBKEY` from init output)
+- [x] Run backend + frontend: `make backend` + `make frontend`
+- [x] Mint a token via UI (connect wallet, fill form, submit)
 
 **Test:** backend logs show `TokenCreated` event JSON
 

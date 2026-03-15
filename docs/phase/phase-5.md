@@ -4,11 +4,11 @@
 
 ## Tasks
 
-- [ ] 5.1 Start validator: `make validator-metaplex`
-- [ ] 5.2 Deploy & init: `make deploy && make init`
-- [ ] 5.3 Configure `backend/.env` (copy `.env.example`, set `ORACLE_STATE_PUBKEY` from init output)
-- [ ] 5.4 Run backend + frontend: `make backend` + `make frontend`
-- [ ] 5.5 Mint a token via UI (connect wallet, fill form, submit)
+- [x] 5.1 Start validator: `make validator-metaplex`
+- [x] 5.2 Deploy & init: `make deploy && make init`
+- [x] 5.3 Configure `backend/.env` (copy `.env.example`, set `ORACLE_STATE_PUBKEY` from init output)
+- [x] 5.4 Run backend + frontend: `make backend` + `make frontend`
+- [x] 5.5 Mint a token via UI (connect wallet, fill form, submit)
 
 ## Acceptance Criteria
 

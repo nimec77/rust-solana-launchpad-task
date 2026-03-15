@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [ML-5] — 2026-03-15
+
+### Fixed
+
+- **Backend `.env.example`:** Corrected stale oracle program ID (`88GBkKvZbhtTcXy2tpwHQSVxHqPqurQbjKW1nLzER84c`) in the PDA derivation comment on line 14 to use the correct ID (`GSwL85d5Pvvh8HreS3D7d6X3NmCZySbKmZBebF3oqCk3`), eliminating the last remaining stale program ID reference from the ML-4 migration.
+
+### Validated
+
+- **Local end-to-end cycle:** Brought the full local stack online (validator with Metaplex, both programs deployed and initialized, backend price updater + event listener, Remix frontend on port 7001) and successfully minted a token via the browser UI. Backend captured `TokenCreated` event JSON, confirming the complete pipeline works end-to-end.
+
+---
+
 ## [ML-4] — 2026-03-14
 
 ### Changed
