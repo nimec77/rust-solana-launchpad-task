@@ -130,7 +130,10 @@ struct TokenCreatedLog {
 async fn main() -> Result<()> {
     dotenv().ok();
     tracing_subscriber::fmt()
-        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env())
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info")),
+        )
         .init();
 
     let cfg = Config::from_env()?;

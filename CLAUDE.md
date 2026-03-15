@@ -32,6 +32,8 @@ npm test                        # Vitest unit tests
 npx vitest run app/mintInstruction.test.ts  # Single test file
 ```
 
+**Remix v2 port gotcha**: The dev server has two processes — a parent dev orchestrator and a child `remix-serve`. The app port is controlled by the `PORT` env var (read by `remix-serve`), **not** `--port` (which sets the orchestrator's internal port). Using both with the same value causes `EADDRINUSE`. The `dev` script uses `PORT=7001 remix dev` (no `--port`).
+
 ### Top-level Makefile shortcuts
 ```bash
 make install             # yarn install (program/) + npm install (frontend/)
@@ -73,7 +75,7 @@ Configuration via `backend/.env` (see `.env.example`). Supports `~` in `BACKEND_
 
 ### Remix Frontend (`frontend/`)
 
-Terminal-styled React app with Solana Wallet Adapter (Phantom, Solflare). Polls oracle + minter PDA state every 5s. Constructs `mint_token` instruction client-side with manual Borsh encoding (`mintInstruction.ts`). Supports localnet/devnet network switching.
+Terminal-styled React app with Solana Wallet Adapter (Phantom, Solflare, Backpack). Polls oracle + minter PDA state every 5s. Constructs `mint_token` instruction client-side with manual Borsh encoding (`mintInstruction.ts`). Supports localnet/devnet network switching.
 
 Key files: `config.ts` (program IDs, seeds), `mintInstruction.ts` (instruction builder), `TerminalMint.tsx` (main UI + minting logic), `TerminalApp.tsx` (wallet providers).
 
@@ -129,3 +131,6 @@ Development follows `docs/workflow.md`: strict iteration-by-iteration execution 
 - Frontend uses manual Borsh encoding (not Anchor client) for instruction construction
 - Tests use LiteSVM (lightweight SVM, no network required) with TypeScript Mocha
 - Oracle state raw bytes: price at offset 40 (u64 LE), minter config: fee at offset 72, treasury at offset 40-72
+- Package managers: **yarn** for `program/`, **npm** for `frontend/` (see `make install`)
+- No CI/CD pipelines — the Makefile is the sole build orchestration tool
+- No rustfmt.toml or .editorconfig — Rust and TS use default formatter settings

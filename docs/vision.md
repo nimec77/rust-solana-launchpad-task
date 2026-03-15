@@ -251,7 +251,7 @@ make deploy                    # anchor build + deploy
 make init                      # initialize oracle + minter
 ```
 
-**Localnet wallet**: Use Backpack for local development — it connects to `localhost:8899` correctly. Phantom, Solflare, and most wallets route RPC through remote servers, so `localhost` resolves to the server, not your machine. For tunneling options (ngrok, etc.), see the Backpack documentation.
+**Localnet wallet**: Use Backpack for local development — it connects to `localhost:8899` correctly. Phantom, Solflare, and most wallets route RPC through remote servers, so `localhost` resolves to the server, not your machine. For full wallet functionality (balance display, etc.), use an ngrok tunnel: `ngrok http 8899` → set the resulting URL as Custom RPC in wallet settings. See `docs/deploy-local.md` for detailed setup instructions.
 
 **Devnet deployment:**
 ```bash

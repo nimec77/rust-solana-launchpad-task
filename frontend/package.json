@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "remix dev --port 7001",
+    "dev": "PORT=7001 remix dev",
     "build": "remix build",
     "start": "PORT=7001 remix-serve build",
     "test": "vitest run",

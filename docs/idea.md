@@ -177,7 +177,7 @@ cargo test
 
 **Metaplex metadata**: when minting, you can pass `name`, `symbol`, and `uri` — the contract creates Metaplex Token Metadata (name, ticker, image in wallet). If you pass an empty name, no metadata is created (suitable for localnet without Metaplex). For wallet display, run `make validator-metaplex` to clone the Metaplex program from mainnet.
 
-**Wallet for localnet**: For testing with local RPC (`http://localhost:8899`), Backpack is recommended — it connects to your local validator correctly. Most other wallets (including Phantom and Solflare) route RPC requests through remote servers, so `localhost` resolves to the server itself, not your machine. For details on localhost RPC limitations and tunneling (ngrok, etc.), see the Backpack documentation.
+**Wallet for localnet**: For testing with a local validator (`http://localhost:8899`), **Backpack** is recommended — it connects to local RPC correctly. Most other wallets (Phantom, Solflare, etc.) route RPC requests through their own servers: when you set `localhost:8899`, the wallet's server tries to connect to its own localhost, not the developer's machine. Even Backpack routes some internal RPC calls through servers for certain operations (balance display, etc.), so for full functionality it is recommended to use an **ngrok tunnel**: `ngrok http 8899` creates a public URL (e.g., `https://xxxx.ngrok-free.app`) that should be set as Custom RPC in the wallet settings. See `docs/deploy-local.md` for detailed setup instructions.
 
 ### Step 6: Deploy to Devnet and Submit Results
 
