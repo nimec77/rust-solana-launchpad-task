@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { BackpackWalletAdapter } from "@solana/wallet-adapter-backpack";
 import TerminalMint from "./TerminalMint";
 import { DEFAULT_NETWORK, NETWORKS, type NetworkId } from "../config";
 
@@ -13,7 +14,7 @@ export default function TerminalApp() {
   useEffect(() => setMounted(true), []);
 
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
+    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter(), new BackpackWalletAdapter()],
     []
   );
 
@@ -32,7 +33,7 @@ export default function TerminalApp() {
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider wallets={wallets}>
         <WalletModalProvider>
           <TerminalMint network={network} setNetwork={setNetwork} rpcUrl={endpoint} />
         </WalletModalProvider>

@@ -2,9 +2,9 @@ use std::{env, str::FromStr, sync::Arc, time::Duration};
 
 use anchor_lang::InstructionData;
 use anyhow::{anyhow, Context, Result};
+use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
 use dotenvy::dotenv;
 use futures::StreamExt;
-use regex::Regex;
 use serde::Serialize;
 use solana_client::{
     nonblocking::{pubsub_client::PubsubClient, rpc_client::RpcClient},
@@ -271,36 +271,42 @@ async fn run_event_listener(cfg: Config) -> Result<()> {
     Ok(())
 }
 
-fn parse_token_created(logs: &RpcLogsResponse, _program_id: Pubkey) -> Option<TokenCreatedLog> {
-    let re = Regex::new(
-        r"TokenCreated \{ creator: ([A-Za-z0-9]+), mint: ([A-Za-z0-9]+), decimals: (\d+), initial_supply: (\d+), fee_lamports: (\d+), sol_usd_price: (\d+), slot: (\d+) \}",
-    )
-    .expect("regex");
+/// Anchor event discriminator for `TokenCreated`: sha256("event:TokenCreated")[..8]
+const TOKEN_CREATED_DISC: [u8; 8] = [0xec, 0x13, 0x29, 0xff, 0x82, 0x4e, 0x93, 0xac];
 
+fn parse_token_created(logs: &RpcLogsResponse, _program_id: Pubkey) -> Option<TokenCreatedLog> {
     for log in &logs.logs {
-        if !log.contains("TokenCreated") {
+        let data_b64 = match log.strip_prefix("Program data: ") {
+            Some(d) => d,
+            None => continue,
+        };
+        let data = match BASE64.decode(data_b64) {
+            Ok(d) => d,
+            Err(_) => continue,
+        };
+        // 8 disc + 32 creator + 32 mint + 1 decimals + 8 supply + 8 fee + 8 price + 8 slot = 105
+        if data.len() < 105 || data[..8] != TOKEN_CREATED_DISC {
             continue;
         }
-        if let Some(caps) = re.captures(log) {
-            let creator = caps.get(1)?.as_str().to_string();
-            let mint = caps.get(2)?.as_str().to_string();
-            let decimals = caps.get(3)?.as_str().parse().ok()?;
-            let initial_supply = caps.get(4)?.as_str().parse().ok()?;
-            let fee_lamports = caps.get(5)?.as_str().parse().ok()?;
-            let sol_usd_price = caps.get(6)?.as_str().parse().ok()?;
-            let slot = caps.get(7)?.as_str().parse().ok()?;
 
-            return Some(TokenCreatedLog {
-                creator,
-                mint,
-                decimals,
-                initial_supply,
-                fee_lamports,
-                sol_usd_price,
-                slot,
-                signature: logs.signature.clone(),
-            });
-        }
+        let creator = Pubkey::new_from_array(<[u8; 32]>::try_from(&data[8..40]).ok()?);
+        let mint = Pubkey::new_from_array(<[u8; 32]>::try_from(&data[40..72]).ok()?);
+        let decimals = data[72];
+        let initial_supply = u64::from_le_bytes(<[u8; 8]>::try_from(&data[73..81]).ok()?);
+        let fee_lamports = u64::from_le_bytes(<[u8; 8]>::try_from(&data[81..89]).ok()?);
+        let sol_usd_price = u64::from_le_bytes(<[u8; 8]>::try_from(&data[89..97]).ok()?);
+        let slot = u64::from_le_bytes(<[u8; 8]>::try_from(&data[97..105]).ok()?);
+
+        return Some(TokenCreatedLog {
+            creator: creator.to_string(),
+            mint: mint.to_string(),
+            decimals,
+            initial_supply,
+            fee_lamports,
+            sol_usd_price,
+            slot,
+            signature: logs.signature.clone(),
+        });
     }
     None
 }
@@ -367,16 +373,21 @@ mod tests {
 
     #[test]
     fn parse_token_created_reads_expected_fields() {
+        // Real Anchor event: base64(discriminator + borsh-serialized TokenCreated)
+        // creator=[1;32], mint=[2;32], decimals=6, supply=1_000_000,
+        // fee=41_666_666, price=120_000_000, slot=77
         let logs = RpcLogsResponse {
             signature: "5Yf8k3w2J3k9R8B9Q2".to_string(),
             err: None,
             logs: vec![
                 "Program xyz log".to_string(),
-                "Program log: TokenCreated { creator: 4N8wYzU2aB3cD4eF5gH6iJ7kL8mN9pQ1R2sT3uV4wXy, mint: 7K9mP2xQ8dW1vR6nT4cB3zY5aL7fG2hJ9sD1qW8eR4t, decimals: 6, initial_supply: 1000000, fee_lamports: 41666666, sol_usd_price: 120000000, slot: 77 }".to_string(),
+                "Program data: 7BMp/4JOk6wBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkBCDwAAAAAAash7AgAAAAAADicHAAAAAE0AAAAAAAAA".to_string(),
             ],
         };
 
         let parsed = parse_token_created(&logs, Pubkey::new_unique()).expect("event should parse");
+        assert_eq!(parsed.creator, "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi");
+        assert_eq!(parsed.mint, "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR");
         assert_eq!(parsed.decimals, 6);
         assert_eq!(parsed.initial_supply, 1_000_000);
         assert_eq!(parsed.fee_lamports, 41_666_666);
