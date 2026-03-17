@@ -1,6 +1,6 @@
 # Solana Mini-Launchpad — Task List
 
-**Current Phase:** 5
+**Current Phase:** 6
 
 ## Progress
 
@@ -11,7 +11,7 @@
 | 3  | Fix Backend                  | ✅      |
 | 4  | Generate Own Program IDs     | ✅      |
 | 5  | Local End-to-End Cycle       | ✅      |
-| 6  | Devnet Deployment            | ⬜      |
+| 6  | Devnet Deployment            | ✅      |
 
 ---
 
@@ -68,14 +68,14 @@
 
 **Test:** backend logs show `TokenCreated` event JSON
 
----
+---2
 
 ## Iteration 6: Devnet Deployment
 
-- [ ] Switch to devnet: `solana config set --url devnet && solana airdrop 2`
-- [ ] Deploy & init: `make deploy-devnet && make init-devnet`
-- [ ] Configure backend `.env` for devnet RPC endpoints
-- [ ] Mint at least one token on devnet via frontend
-- [ ] Update `README.md` with deployed program addresses and devnet tx links
+- [x] Switch to devnet: `solana config set --url devnet && solana airdrop 2`
+- [x] Deploy & init: `make deploy-devnet && make init-devnet`
+- [x] Configure backend `.env` for devnet RPC endpoints
+- [x] Mint at least one token on devnet via frontend
+- [x] Update `README.md` with deployed program addresses and devnet tx links
 
 **Test:** devnet transaction links are valid and viewable on explorer

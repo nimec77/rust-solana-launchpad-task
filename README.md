@@ -47,6 +47,15 @@
 
 4. В приложении выбрать сеть **Devnet**, в кошельке переключиться на Devnet — можно минтить. На devnet Metaplex уже есть, картинка в кошельке может отображаться (если URI доступен по HTTPS).
 
+### Devnet-адреса и транзакции
+
+| Что | Адрес / Подпись | Explorer |
+|-----|-----------------|----------|
+| **sol_usd_oracle** | `GSwL85d5Pvvh8HreS3D7d6X3NmCZySbKmZBebF3oqCk3` | [explorer](https://explorer.solana.com/address/GSwL85d5Pvvh8HreS3D7d6X3NmCZySbKmZBebF3oqCk3?cluster=devnet) |
+| **token_minter** | `3eyjeU9ZaU2aVySwSNBQWPtkZnN2NtUNWDmpBfsMj4kn` | [explorer](https://explorer.solana.com/address/3eyjeU9ZaU2aVySwSNBQWPtkZnN2NtUNWDmpBfsMj4kn?cluster=devnet) |
+| **Mint tx** | `5Gu8AzrXGUDpW4w6Cd4y1M4sR4niv2GiLVQezFBq2zApXS6Y3JPpk1tq4kDU3fxHN4TVN6XrqtXJJjAJaqCA2r5j` | [explorer](https://explorer.solana.com/tx/5Gu8AzrXGUDpW4w6Cd4y1M4sR4niv2GiLVQezFBq2zApXS6Y3JPpk1tq4kDU3fxHN4TVN6XrqtXJJjAJaqCA2r5j?cluster=devnet) |
+| **Minted token (SPL)** | `4nSHuh2AY1nqMWfP8hYMopoSJZPNq8sqv8XREf2Bbpy7` (6 decimals, supply 1 000 000) | [explorer](https://explorer.solana.com/address/4nSHuh2AY1nqMWfP8hYMopoSJZPNq8sqv8XREf2Bbpy7?cluster=devnet) |
+
 4. **Backend**: скопировать `backend/.env.example` в `backend/.env`, подставить `ORACLE_STATE_PUBKEY` из вывода init-скрипта. Путь `BACKEND_KEYPAIR_PATH` поддерживает `~`:
    ```bash
    cd backend
